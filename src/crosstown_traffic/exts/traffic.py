@@ -35,9 +35,8 @@ class MapsView(discord.ui.View):
             f"center={round(self.location.latitude, 6)},{round(self.location.longitude, 6)}"
             "&zoom=17&size=400x400&maptype=hybrid"
             f"&markers=color:blue%7Clabel:V%7C{round(self.location.latitude, 6)},{round(self.location.longitude, 6)}"
-            f"&key={os.getenv('GOOGLE_MAPS_KEY')}"
+            f"&key={os.getenv('GOOGLE_MAPS_API_KEY')}"
         )
-        logger.error(static_map_url)
         fb = await grab_file_bytes(static_map_url)
         try:
             await interaction.followup.send(
@@ -56,7 +55,7 @@ class MapsView(discord.ui.View):
             f"https://maps.googleapis.com/maps/api/streetview?size=400x400"
             f"&location={round(self.location.latitude, 6)},{round(self.location.longitude, 6)}"
             f"&fov=80"
-            f"&pitch=0&key={os.getenv('GOOGLE_MAPS_KEY')}"
+            f"&pitch=0&key={os.getenv('GOOGLE_MAPS_API_KEY')}"
         )
         fb = await grab_file_bytes(static_street_view_url)
         await interaction.followup.send(
