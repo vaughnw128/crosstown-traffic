@@ -82,10 +82,10 @@ def get_location_embed(location: Location):
     embed.add_field(name="Timestamp", value=datetime.now(), inline=True)
     embed.add_field(
         name="Coordinates",
-        value=f"{location.latitude}, {location.longitude}",
+        value=f"{round(location.latitude, 6)}, {round(location.longitude, 6)}",
         inline=True,
     )
-    embed.add_field(name="Altitude", value=location.altitude, inline=True)
+    embed.add_field(name="Altitude", value=round(location.altitude, 6), inline=True)
     embed.add_field(name="Battery Level", value=location.battery, inline=True)
     embed.add_field(name="Network", value=location.network, inline=True)
     embed.add_field(name="Address", value=location.address, inline=True)
