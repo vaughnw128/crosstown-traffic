@@ -14,4 +14,4 @@ config:
       path: "crosstown-traffic/google-maps-api-key"
   env:
     - name: "CHANNEL_ID"
-      value: "740341629323575338"
+      value: "644752766736138241"
