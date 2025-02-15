@@ -37,6 +37,7 @@ class MapsView(discord.ui.View):
             f"&markers=color:blue%7Clabel:V%7C{round(self.location.latitude, 6)},{round(self.location.longitude, 6)}"
             f"&key={os.getenv('GOOGLE_MAPS_KEY')}"
         )
+        print(static_map_url)
         fb = await grab_file_bytes(static_map_url)
         try:
             await interaction.followup.send(
