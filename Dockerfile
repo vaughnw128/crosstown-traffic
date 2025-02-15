@@ -12,4 +12,4 @@ COPY . .
 RUN poetry install
 
 ENTRYPOINT ["poetry"]
-CMD ["uvicorn", "crosstown_traffic.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["poetry", "run", "uvicorn", "crosstown_traffic.main:app", "--host", "0.0.0.0", "--port", "8080"]
