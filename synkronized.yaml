@@ -1,0 +1,17 @@
+synkronized:
+  name: crosstown-traffic
+  template: single-container
+config:
+  size: small
+  gateway:
+    public: true
+    hostname: "traffic.vaughn.sh"
+    containerPort: 8080
+  vaultSecrets:
+    - name: "DISCORD_TOKEN"
+      path: "crosstown-traffic/discord-token"
+    - name: "GOOGLE_MAPS_API_KEY"
+      path: "crosstown-traffic/google-maps-api-key"
+  env:
+    - name: "CHANNEL_ID"
+      value: "740341629323575338"
