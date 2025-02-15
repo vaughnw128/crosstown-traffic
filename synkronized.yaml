@@ -15,3 +15,5 @@ config:
   env:
     - name: "CHANNEL_ID"
       value: "644752766736138241"
+    - name: "GUILD_ID"
+      value: "644752766241341460"
