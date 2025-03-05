@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "crosstown-traffic"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Vaughn Woerpel <vaughnwoerpel@gmail.com>"]
 readme = "README.md"

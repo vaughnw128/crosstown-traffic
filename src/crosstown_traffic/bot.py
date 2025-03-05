@@ -49,8 +49,8 @@ class CrosstownTraffic(commands.Bot):
     async def setup_hook(self) -> None:
         """Replacing default setup_hook to run on startup"""
         await self.load_extensions(exts)
-        await self.sync_app_commands()
-        self.tree.on_error = self.global_app_command_error
+        # await self.sync_app_commands()
+        # self.tree.on_error = self.global_app_command_error
         logger.info("Started")
 
     async def global_app_command_error(
