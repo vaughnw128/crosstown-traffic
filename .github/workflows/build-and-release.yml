@@ -10,7 +10,7 @@ jobs:
     name: "Create Git Tag"
     runs-on: "ubuntu-latest"
     outputs:
-      tag: ${{ steps.git-tag.outputs.tag }}
+      tag: ${{ steps.get-tag.outputs.PKG_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -31,7 +31,6 @@ jobs:
         shell: "bash"
         run: |
           git tag v${{ steps.get-tag.outputs.PKG_VERSION }} && git push --tags
-          echo "tag=v${{ steps.get-tag.outputs.PKG_VERSION }}" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
