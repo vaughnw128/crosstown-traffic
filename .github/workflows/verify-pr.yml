@@ -1,0 +1,16 @@
+name: Verify PR
+on:
+  pull_request:
+
+jobs:
+  verify-pr:
+    name: "PR Quality"
+    runs-on: "ubuntu-latest"
+    steps:
+    - name: Check Semantic Release
+      uses: cycjimmy/semantic-release-action@v4
+      id: tag
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        dry_run: true

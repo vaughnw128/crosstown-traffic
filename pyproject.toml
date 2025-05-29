@@ -1,23 +1,18 @@
-[tool.poetry]
+[project]
 name = "crosstown-traffic"
 version = "0.1.1"
-description = ""
-authors = ["Vaughn Woerpel <vaughnwoerpel@gmail.com>"]
+description = "Whatabout the wherabouts"
+authors = [{ name = "Vaughn Woerpel", email = "vaughnwoerpel@gmail.com" }]
+requires-python = "~=3.13"
 readme = "README.md"
+dependencies = [
+    "fastapi[standard]>=0.115.7,<0.116",
+    "discord-py>=2.4.0,<3",
+    "coloredlogs>=15.0.1,<16",
+    "requests>=2.32.3,<3",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12,<3.13"
-fastapi = "^0.115.7"
-discord-py = "^2.4.0"
-python-dotenv = "^1.0.1"
-coloredlogs = "^15.0.1"
-uvicorn = "^0.34.0"
-requests = "^2.32.3"
-pillow = "^11.1.0"
-magika = "^0.5.1"
-ruff = "^0.9.6"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+  "ruff>=0.9.6,<0.10",
+]
