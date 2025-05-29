@@ -41,14 +41,15 @@ jobs:
           build-args: |
             git_sha=${{ github.sha }}
 
-      - name: Set Tag
-        shell: "bash"
-        run: |
-          git tag ${{ steps.tag.outputs.new_release_version }} && git push --tags
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
             
             
