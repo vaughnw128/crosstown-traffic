@@ -7,6 +7,9 @@ jobs:
     name: "PR Quality"
     runs-on: "ubuntu-latest"
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Check Semantic Release
       uses: cycjimmy/semantic-release-action@v4
       id: tag
@@ -14,3 +17,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         dry_run: true
+        ci: false
