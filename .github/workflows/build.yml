@@ -1,0 +1,54 @@
+name: Build and Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Tag
+        uses: cycjimmy/semantic-release-action@v4
+        id: tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          dry_run: true
+
+      - name: Login to Github Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile
+          push: ${{ github.ref == 'refs/heads/main' }}
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ steps.tag.outputs.new_release_version }}
+          cache-to: type=inline
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ steps.tag.outputs.new_release_version }}
+          build-args: |
+            git_sha=${{ github.sha }}
+
+      - name: Set Tag
+        shell: "bash"
+        run: |
+          git tag ${{ steps.tag.outputs.new_release_version }} && git push --tags
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+            
+            

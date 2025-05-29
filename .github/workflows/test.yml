@@ -11,14 +11,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
     - name: Checkout
-      uses: "actions/checkout@v4"
+      uses: actions/checkout@v4
 
     - name: Install Ruff
-      uses: "astral-sh/ruff-action@v3"
+      uses: astral-sh/ruff-action@v3
 
     - name: Code Format
       run: "ruff format"
 
     - name: Linting
       run: "ruff check"
-

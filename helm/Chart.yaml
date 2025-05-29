@@ -1,0 +1,10 @@
+apiVersion: v2
+name: crosstown-traffic
+description: Friendly Location Notifier
+type: application
+version: 0.1.1
+appVersion: "0.1.1"
+dependencies:
+- name: single-container
+  version: "0.1.11"
+  repository: "https://charts.vaughn.sh"
