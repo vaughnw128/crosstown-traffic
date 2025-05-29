@@ -20,5 +20,5 @@ jobs:
       run: "ruff format"
 
     - name: Linting
-      run: "ruff check ."
+      run: "ruff check"
 
