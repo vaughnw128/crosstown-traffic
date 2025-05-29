@@ -1,3 +1,5 @@
+"""Bot module for setting up the actual Discord bot instance."""
+
 # built-in
 import importlib
 import inspect
@@ -13,9 +15,9 @@ from discord import app_commands
 from discord.ext import commands
 
 # project modules
-import crosstown_traffic.exts as exts
+from . import exts
 
-from crosstown_traffic.helpers.logging import logger
+from .helpers.logging import logger
 
 
 @dataclass

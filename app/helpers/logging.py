@@ -1,9 +1,4 @@
-"""__init__
-
-Just handles some logging stuff, mostly
-
-Made with love and care by Vaughn Woerpel
-"""
+"""Logging module for easy logging setup."""
 
 # built-in
 import logging

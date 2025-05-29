@@ -10,9 +10,9 @@ import aiohttp
 import discord
 from discord.ext import commands
 
-from crosstown_traffic.models import Location
-
-from crosstown_traffic.helpers.logging import logger
+# project
+from ..models import Location
+from ..helpers.logging import logger
 
 
 class MapsView(discord.ui.View):
