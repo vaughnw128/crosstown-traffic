@@ -1,13 +1,16 @@
 name: Build and Release
 on:
-  push:
+  workflow_run:
+    workflows: [ 'Code Quality & Tests' ]
+    types: [ completed ]
     branches:
-      - main
+      - 'main'
 
 jobs:
   build:
     name: Build and Release
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'synkronizedcd[bot]' }}
 
     steps:
       - uses: actions/checkout@v4

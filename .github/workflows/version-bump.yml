@@ -31,13 +31,13 @@ jobs:
             yq -i '.version = "${{ steps.version.outputs.version }}"' ./helm/Chart.yaml
             yq -i '.appVersion = "${{ steps.version.outputs.version }}"' ./helm/Chart.yaml
 
-      - name: Push Version
+      - name: Commit changes
         run: |
           git config --local user.email "195056476+synkronizedcd[bot]@users.noreply.github.com"
           git config --local user.name "synkronizedcd[bot]"
           git commit -am "Bump verison to ${{ steps.version.outputs.version }}"
 
-      - name: Get App Token
+      - name: Get app token
         uses: actions/create-github-app-token@v2
         id: app-token
         with:
