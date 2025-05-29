@@ -1,12 +1,45 @@
 name: Bump Version
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   image:
-    name: Build Image
+    name: Bump Version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Trim Ref Version
+        id: version
+        run: sed 's/v//g' <<< ${{ github.ref_name }} | awk '{print "version="$1}' >> $GITHUB_OUTPUT
+
+      - name: Bump uv package version
+        run: uv version ${{ steps.version.outputs.version }}
+
+      - name: Update Helm chart
+        uses: mikefarah/yq@v4.45.4
+        with:
+          cmd: |
+            yq -i '.version = ${{ steps.version.outputs.version }}' ./helm/Chart.yaml
+            yq -i '.appVersion = ${{ steps.version.outputs.version }}' ./helm/Chart.yaml
+
+#      - uses: actions/create-github-app-token@v2
+#        id: app-token
+#        with:
+#          app-id: ${{ vars.APP_ID }}
+#          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Push Version
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -am "Bump verison to ${{ steps.version.outputs.version }}"
+          git push ${{ github.head_ref }}
+#        env:
+#          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
