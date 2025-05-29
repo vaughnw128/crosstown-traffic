@@ -9,6 +9,7 @@ jobs:
   code-quality:
     name: "Code Quality"
     runs-on: "ubuntu-latest"
+    if: ${{ github.actor != 'synkronizedcd[bot]' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
