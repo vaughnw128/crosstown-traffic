@@ -16,7 +16,7 @@ jobs:
 
       - name: Trim Ref Version
         id: version
-        run: sed 's/refs\/tags\/v//g' <<< ${{ github.ref_name }} | awk '{print "version="$1}' >> $GITHUB_OUTPUT
+        run: sed 's/v//g' <<< ${{ github.ref_name }} | awk '{print "version="$1}' >> $GITHUB_OUTPUT
 
       - name: Bump uv package version
         run: uv version ${{ steps.version.outputs.version }}
@@ -25,8 +25,8 @@ jobs:
         uses: mikefarah/yq@v4.45.4
         with:
           cmd: |
-            yq -i '.version = ${{ steps.version.outputs.version }}' ./helm/Chart.yaml
-            yq -i '.appVersion = ${{ steps.version.outputs.version }}' ./helm/Chart.yaml
+            yq -i '.version = "${{ steps.version.outputs.version }}"' ./helm/Chart.yaml
+            yq -i '.appVersion = "${{ steps.version.outputs.version }}"' ./helm/Chart.yaml
 
       - uses: actions/create-github-app-token@v2
         id: app-token
