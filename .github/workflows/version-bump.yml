@@ -13,6 +13,7 @@ jobs:
         with:
           ref: ${{ github.event.repository.default_branch }}
           persist-credentials: false
+          token:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -31,17 +32,14 @@ jobs:
             yq -i '.version = "${{ steps.version.outputs.version }}"' ./helm/Chart.yaml
             yq -i '.appVersion = "${{ steps.version.outputs.version }}"' ./helm/Chart.yaml
 
-      - uses: actions/create-github-app-token@v2
-        id: app-token
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
-
-      - name: Push Version
+      - name: Commit
         run: |
           git config --local user.email "195056476+synkronizedcd[bot]@users.noreply.github.com"
           git config --local user.name "synkronizedcd[bot]"
           git commit -am "Bump verison to ${{ steps.version.outputs.version }}"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ steps.app-token.outputs.token }}
+          branch: ${{ github.event.repository.default_branch }}
