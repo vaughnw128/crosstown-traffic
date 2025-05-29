@@ -1,14 +1,19 @@
+"""Main module for the running of the FastAPI handler"""
+
+# built-in
 import asyncio
 import os
 from contextlib import asynccontextmanager
 
+# external
 import discord
 
-from crosstown_traffic.exts import traffic
-from crosstown_traffic.exts.traffic import MapsView
-from crosstown_traffic.models import TrafficRequest
+# project
+from .exts import traffic
+from .exts.traffic import MapsView
+from .models import TrafficRequest
 from fastapi import FastAPI
-from crosstown_traffic.bot import CrosstownTraffic
+from .bot import CrosstownTraffic
 
 DISCORD_CHANNEL = int(os.getenv("CHANNEL_ID"))
 
