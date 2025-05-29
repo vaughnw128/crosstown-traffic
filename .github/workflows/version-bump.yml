@@ -1,8 +1,8 @@
 name: Bump Version
 on:
-  release:
-    types: [ published ]
-
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   image:
@@ -29,11 +29,11 @@ jobs:
             yq -i '.version = ${{ steps.version.outputs.version }}' ./helm/Chart.yaml
             yq -i '.appVersion = ${{ steps.version.outputs.version }}' ./helm/Chart.yaml
 
-#      - uses: actions/create-github-app-token@v2
-#        id: app-token
-#        with:
-#          app-id: ${{ vars.APP_ID }}
-#          private-key: ${{ secrets.PRIVATE_KEY }}
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Push Version
         run: |
@@ -41,5 +41,5 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git commit -am "Bump verison to ${{ steps.version.outputs.version }}"
           git push ${{ github.head_ref }}
-#        env:
-#          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
