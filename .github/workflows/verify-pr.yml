@@ -21,7 +21,7 @@ jobs:
         dry_run: true
 
     - name: Check version number
-      if: ${{ steps.tag.outputs.new_release_version == steps.tag.outputs.last_release_version }}
+      if: ${{ steps.tag.outputs.new_release_version != steps.tag.outputs.last_release_version }}
       uses: actions/github-script@v3
       with:
         script: |
