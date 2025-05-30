@@ -40,6 +40,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+@app.get("/")
+async def root():
+    return {"message": "Nothing here, friend!"}
+
 @app.post("/api/mta")
 async def mta(request: TrafficRequest):
     embed = traffic.get_location_embed(request.location)
