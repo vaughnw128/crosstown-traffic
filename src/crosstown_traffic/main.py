@@ -9,11 +9,11 @@ from contextlib import asynccontextmanager
 import discord
 
 # project
-from .exts import traffic
-from .exts.traffic import MapsView
-from .models import TrafficRequest
+from crosstown_traffic.exts import traffic
+from crosstown_traffic.exts.traffic import MapsView
+from crosstown_traffic.models import TrafficRequest
 from fastapi import FastAPI
-from .bot import CrosstownTraffic
+from crosstown_traffic.bot import CrosstownTraffic
 
 DISCORD_CHANNEL = int(os.getenv("CHANNEL_ID"))
 

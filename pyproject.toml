@@ -15,4 +15,11 @@ dependencies = [
 [dependency-groups]
 dev = [
   "ruff",
+  "pytest"
 ]
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+addopts = ""
