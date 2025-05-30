@@ -194,7 +194,7 @@ wheels = [
 
 [[package]]
 name = "crosstown-traffic"
-version = "0.1.1"
+version = "0.5.0"
 source = { editable = "." }
 dependencies = [
     { name = "coloredlogs" },
