@@ -1,8 +1,6 @@
 name: Verify PR
 on:
   pull_request:
-    types:
-      - opened
     branches:
       - 'main' # We only need to verify PR quality if pushing to the main branch
 
