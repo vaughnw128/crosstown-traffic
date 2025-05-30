@@ -15,9 +15,9 @@ from discord import app_commands
 from discord.ext import commands
 
 # project modules
-from . import exts
+from crosstown_traffic import exts
 
-from .helpers.logging import logger
+from crosstown_traffic.helpers.logging import logger
 
 
 @dataclass

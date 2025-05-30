@@ -9,11 +9,11 @@ from contextlib import asynccontextmanager
 import discord
 
 # project
-from .exts import traffic
-from .exts.traffic import MapsView
-from .models import TrafficRequest
+from crosstown_traffic.exts import traffic
+from crosstown_traffic.exts.traffic import MapsView
+from crosstown_traffic.models import TrafficRequest
 from fastapi import FastAPI
-from .bot import CrosstownTraffic
+from crosstown_traffic.bot import CrosstownTraffic
 
 DISCORD_CHANNEL = int(os.getenv("CHANNEL_ID"))
 
@@ -42,7 +42,7 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 async def root():
-    return {"message": "Nothing here, friend!"}
+    return {"message": "Nothing here, bozo!"}
 
 @app.post("/api/mta")
 async def mta(request: TrafficRequest):

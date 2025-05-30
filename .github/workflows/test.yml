@@ -3,13 +3,12 @@ on:
   push:
     branches:
       - main
-  pull_request:
+  pull_request: # Run on all PR branches
 
 jobs:
   code-quality:
     name: "Code Quality"
     runs-on: "ubuntu-latest"
-    if: ${{ github.actor != 'synkronizedcd[bot]' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -23,6 +22,15 @@ jobs:
     - name: Linting
       run: "ruff check"
 
+    - name: Set up Helm
+      uses: azure/setup-helm@v4.3.0
+
+    - name: Helm Lint
+      run: helm lint helm/
+
+    - name: Helm Template
+      run: helm template helm/
+
       # Don't run these next steps if it's not a PR build
 
     - name: Set up Docker Buildx
@@ -34,3 +42,18 @@ jobs:
       if: github.ref != 'refs/heads/main' && github.event_name == 'pull_request'
       with:
         push: false
+  tests:
+    name: "Test Suites"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Sync uv
+        run: uv sync --all-groups
+
+      - name: Pytest
+        run: uv run pytest
