@@ -42,7 +42,7 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 async def root():
-    return {"message": "Nothing here, bozo!"}
+    return {"message": "Nothing here, lalallalala!"}
 
 @app.post("/api/mta")
 async def mta(request: TrafficRequest):
