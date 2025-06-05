@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cluster-ip
+  name: traffic
 spec:
   selector:
     app: {{ lower .Values.name }}
@@ -12,73 +12,21 @@ spec:
       targetPort: {{ .Values.gateway.containerPort }}
   type: ClusterIP
 ---
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: http-gateway
-  {{- if not .Values.gateway.public }}
-  annotations:
-    cert-manager.io/cluster-issuer: local-issuer
-  {{- end }}
+  name: traffic-cloudflare
 spec:
-  gatewayClassName: cilium
-  infrastructure:
-    annotations:
-      external-dns.alpha.kubernetes.io/hostname: {{ .Values.gateway.hostname }}
-  listeners:
-  - protocol: HTTP
-    hostname: {{ .Values.gateway.hostname }}
-    port: 80
-    name: http
-  {{ if not .Values.gateway.public }}
-  - protocol: HTTPS
-    hostname: {{ .Values.gateway.hostname }}
-    port: 443
-    name: https
-    tls:
-      mode: Terminate
-      certificateRefs:
-      - kind: Secret
-        name: secret-tls-https-local
-  {{ end }}
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: https-route
-spec:
-  parentRefs:
-  - name: http-gateway
-    namespace: {{ lower .Values.name }}
-  hostnames:
-  - {{ .Values.gateway.hostname | quote}}
+  ingressClassName: cloudflare-tunnel
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: cluster-ip
-      port: 80
----
-{{ if not .Values.gateway.public }}
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: local-https-redirect
-spec:
-  parentRefs:
-  - name: gateway
-    sectionName: http
-    namespace: {{ lower .Values.name }}
-  hostnames:
-  - {{ .Values.gateway.hostname }}
-  rules:
-  - filters:
-    - type: RequestRedirect
-      requestRedirect:
-        scheme: https
-        statusCode: 301
-{{ end }}
-
+  - host: traffic.vaughn.sh
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: traffic
+            port:
+              number: 80
 {{ end }}
