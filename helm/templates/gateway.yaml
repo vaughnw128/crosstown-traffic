@@ -5,11 +5,11 @@ metadata:
   name: traffic
 spec:
   selector:
-    app: {{ lower .Values.name }}
+    app: {{ lower .Chart.Name }}
   ports:
     - protocol: TCP
       port: 80
-      targetPort: {{ .Values.gateway.containerPort }}
+      targetPort: {{ .Values.containerPort | default 8080 }}
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1

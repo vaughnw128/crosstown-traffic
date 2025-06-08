@@ -1,7 +1,3 @@
-name: "crosstown-traffic"
 image: "ghcr.io/vaughnw128/crosstown-traffic"
-size: small
-gateway:
-  public: true
-  hostname: "traffic.vaughn.sh"
-  containerPort: 8080
+gateway: true
+containerPort: 8080
