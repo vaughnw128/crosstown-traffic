@@ -1,10 +1,6 @@
-vaultSecrets:
-  - name: "DISCORD_TOKEN"
-    path: "crosstown-traffic/discord-token"
-  - name: "GOOGLE_MAPS_API_KEY"
-    path: "crosstown-traffic/google-maps-api-key"
-env:
-  - name: "CHANNEL_ID"
-    value: "644752766736138241"
-  - name: "GUILD_ID"
-    value: "644752766241341460"
+secretVars:
+  DISCORD_TOKEN: "sexybabeycord-discord-token/credential"
+  GOOGLE_MAPS_API_KEY: "maps-api-key/credential"
+envVars:
+  CHANNEL_ID: "644752766736138241"
+  GUILD_ID: "644752766241341460"
