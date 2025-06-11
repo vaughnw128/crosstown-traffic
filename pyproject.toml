@@ -1,6 +1,6 @@
 [project]
 name = "crosstown-traffic"
-version = "0.7.0"
+version = "0.7.1"
 description = "Whatabout the wherabouts"
 authors = [{ name = "Vaughn Woerpel", email = "vaughnwoerpel@gmail.com" }]
 requires-python = "~=3.13"
