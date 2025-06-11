@@ -37,6 +37,8 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v4
+        env:
+          BUILDX_NO_DEFAULT_ATTESTATIONS: 1
         with:
           push: ${{ github.ref == 'refs/heads/main' }}
           platforms: linux/amd64,linux/arm64
