@@ -75,3 +75,25 @@ async def left_home(request: TrafficRequest):
 
     channel = await client.fetch_channel(DISCORD_CHANNEL)
     await channel.send(embed=embed, view=location_view)
+
+
+@app.post("/api/arrived_luca")
+async def arrived_luca(request: TrafficRequest):
+    embed = traffic.get_location_embed(request.location)
+    embed.title = "Vaughn has arrived luca!"
+
+    location_view = MapsView(request.location)
+
+    channel = await client.fetch_channel(DISCORD_CHANNEL)
+    await channel.send(content="<@195332546551087104>", embed=embed, view=location_view)
+
+
+@app.post("/api/left_luca")
+async def left_luca(request: TrafficRequest):
+    embed = traffic.get_location_embed(request.location)
+    embed.title = "Vaughn has left luca!"
+
+    location_view = MapsView(request.location)
+
+    channel = await client.fetch_channel(DISCORD_CHANNEL)
+    await channel.send(content="<@195332546551087104>", embed=embed, view=location_view)
