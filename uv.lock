@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.13, <4"
 
 [[package]]
@@ -194,7 +194,7 @@ wheels = [
 
 [[package]]
 name = "crosstown-traffic"
-version = "0.7.3"
+version = "0.8.0"
 source = { editable = "." }
 dependencies = [
     { name = "coloredlogs" },
