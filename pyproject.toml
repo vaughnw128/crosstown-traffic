@@ -3,7 +3,7 @@ name = "crosstown-traffic"
 version = "0.8.0"
 description = "Whatabout the wherabouts"
 authors = [{ name = "Vaughn Woerpel", email = "vaughnwoerpel@gmail.com" }]
-requires-python = "~=3.13"
+requires-python = ">=3.12"
 readme = "README.md"
 dependencies = [
     "fastapi[standard]",
