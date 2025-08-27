@@ -26,6 +26,11 @@ client = CrosstownTraffic(
 )
 
 
+def is_on_lexington_avenue(address: str) -> bool:
+    """Check if the given address is on Lexington Avenue."""
+    return "lexington" in address.lower()
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     loop = asyncio.get_event_loop()
@@ -81,6 +86,10 @@ async def left_home(request: TrafficRequest):
 async def arrived_luca(request: TrafficRequest):
     embed = traffic.get_location_embed(request.location)
     embed.title = "Vaughn has arrived luca!"
+    
+    # Check if on Lexington Avenue
+    if is_on_lexington_avenue(request.location.address):
+        embed.title = "Vaughn has arrived luca! (on Lexington Ave)"
 
     location_view = MapsView(request.location)
 
@@ -92,6 +101,10 @@ async def arrived_luca(request: TrafficRequest):
 async def left_luca(request: TrafficRequest):
     embed = traffic.get_location_embed(request.location)
     embed.title = "Vaughn has left luca!"
+    
+    # Check if on Lexington Avenue
+    if is_on_lexington_avenue(request.location.address):
+        embed.title = "Vaughn has left luca! (on Lexington Ave)"
 
     location_view = MapsView(request.location)
 
