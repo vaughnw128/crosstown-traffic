@@ -79,6 +79,10 @@ async def left_home(request: TrafficRequest):
 
 @app.post("/api/arrived_luca")
 async def arrived_luca(request: TrafficRequest):
+
+    if "lexington" not in request.location.address.lower():
+        return
+
     embed = traffic.get_location_embed(request.location)
     embed.title = "Vaughn has arrived luca!"
 
@@ -90,6 +94,10 @@ async def arrived_luca(request: TrafficRequest):
 
 @app.post("/api/left_luca")
 async def left_luca(request: TrafficRequest):
+
+    if "lexington" not in request.location.address.lower():
+        return
+
     embed = traffic.get_location_embed(request.location)
     embed.title = "Vaughn has left luca!"
 
