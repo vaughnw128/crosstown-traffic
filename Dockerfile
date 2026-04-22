@@ -23,4 +23,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/.venv/bin/fastapi", "run", "src/crosstown_traffic/main.py", "--port", "8080", "--host", "0.0.0.0"]
+ENTRYPOINT ["/app/.venv/bin/uvicorn", "crosstown_traffic.main:app", "--port", "8080", "--host", "0.0.0.0"]
