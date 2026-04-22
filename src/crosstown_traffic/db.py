@@ -26,6 +26,7 @@ async def record_event(state: str) -> None:
     """Append a presence-change event ('home' or 'away')."""
 
     from datetime import datetime, timezone
+
     now = datetime.now(timezone.utc).isoformat()
     async with aiosqlite.connect(DB_PATH) as db:
         await db.execute(

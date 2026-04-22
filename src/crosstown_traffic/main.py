@@ -46,6 +46,7 @@ app = FastAPI(lifespan=lifespan)
 async def root():
     return {"message": "Nothing here, teehehheheheheheh!"}
 
+
 @app.post("/api/mta")
 async def mta(request: TrafficRequest):
     embed = traffic.get_location_embed(request.location)
@@ -90,7 +91,6 @@ async def status():
 
 @app.post("/api/arrived_luca")
 async def arrived_luca(request: TrafficRequest):
-
     if "lexington" not in request.location.address.lower():
         return
 
@@ -105,7 +105,6 @@ async def arrived_luca(request: TrafficRequest):
 
 @app.post("/api/left_luca")
 async def left_luca(request: TrafficRequest):
-
     if "lexington" not in request.location.address.lower():
         return
 
