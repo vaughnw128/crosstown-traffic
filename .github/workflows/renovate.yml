@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   renovate:
+    if: ${{ github.event_name != 'issue_comment' || github.event.comment.user.type != 'Bot' }}
     uses: vaughnw128/hakoniwa/.github/workflows/renovate.yml@main
     with:
       event-name: ${{ github.event_name }}

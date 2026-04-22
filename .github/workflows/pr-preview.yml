@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   prepare:
-    if: ${{ github.event.issue.pull_request }}
+    if: ${{ github.event.issue.pull_request && github.event.comment.user.type != 'Bot' }}
     uses: vaughnw128/hakoniwa/.github/workflows/pr-comment-prepare.yml@main
     with:
       issue-number: ${{ github.event.issue.number }}
