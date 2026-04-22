@@ -2,8 +2,8 @@ apiVersion: v2
 name: crosstown-traffic
 description: Friendly Location Notifier
 type: application
-version: 0.9.3
-appVersion: "0.9.3"
+version: 0.9.4
+appVersion: "0.9.4"
 dependencies:
   - name: single-container
     version: "1.x.x"
