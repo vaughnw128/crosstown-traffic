@@ -1,3 +1,26 @@
-image: "ghcr.io/vaughnw128/crosstown-traffic"
-gateway: true
-containerPort: 8080
+single-container:
+  name: "crosstown-traffic"
+  image: "ghcr.io/vaughnw128/crosstown-traffic"
+  imageTag: "0.5.0"
+  containerPort: 8080
+  gateway:
+    type: cloudflare-tunnel
+    hostname: traffic.vaughn.sh
+  persistence:
+    - name: db
+      mountPath: /data
+      size: 1Gi
+  envVars:
+    DB_PATH: /data/presence.db
+    CHANNEL_ID: "644752766736138241"
+    GUILD_ID: "644752766241341460"
+  secretVars:
+    DISCORD_TOKEN: "sexybabeycord-discord-token/credential"
+    GOOGLE_MAPS_API_KEY: "maps-api-key/credential"
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+      cpu: 500m

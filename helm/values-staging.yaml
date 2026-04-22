@@ -1,6 +1,0 @@
-secretVars:
-  DISCORD_TOKEN: "sexybabeycord-discord-token/credential"
-  GOOGLE_MAPS_API_KEY: "maps-api-key/credential"
-envVars:
-  CHANNEL_ID: "644752766736138241"
-  GUILD_ID: "644752766241341460"

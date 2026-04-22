@@ -20,3 +20,8 @@ class Location(BaseModel):
 class TrafficRequest(BaseModel):
     location: Location
     trigger: str
+
+
+class StatusResponse(BaseModel):
+    home: bool | None
+    since: str | None

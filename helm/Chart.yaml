@@ -4,3 +4,7 @@ description: Friendly Location Notifier
 type: application
 version: 0.8.1
 appVersion: "0.8.1"
+dependencies:
+  - name: single-container
+    version: "1.x.x"
+    repository: "oci://ghcr.io/vaughnw128/charts"

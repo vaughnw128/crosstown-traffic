@@ -1,14 +1,26 @@
-FROM python:3.13-slim
+# Python/uv multi-stage build using Chainguard images (runs as nonroot by default)
+FROM cgr.dev/chainguard/python:latest-dev AS builder
 
-# Install uv.
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Copy the application into the container.
-COPY . /app
-
-# Install the application dependencies.
 WORKDIR /app
-RUN uv sync --frozen --no-cache
 
-# Run the application.
-CMD ["/app/.venv/bin/fastapi", "run", "src/crosstown_traffic/main.py", "--port", "8080", "--host", "0.0.0.0"]
+ENV UV_PROJECT_ENVIRONMENT=/app/.venv
+
+COPY --chown=nonroot:nonroot pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-cache --no-dev --no-install-project
+
+COPY --chown=nonroot:nonroot . .
+RUN uv sync --frozen --no-cache --no-dev --no-editable
+
+FROM cgr.dev/chainguard/python:latest AS runtime
+
+WORKDIR /app
+
+COPY --from=builder /app/.venv /app/.venv
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+EXPOSE 8080
+
+ENTRYPOINT ["/app/.venv/bin/fastapi", "run", "src/crosstown_traffic/main.py", "--port", "8080", "--host", "0.0.0.0"]
