@@ -11,7 +11,8 @@ import discord
 # project
 from crosstown_traffic.exts import traffic
 from crosstown_traffic.exts.traffic import MapsView
-from crosstown_traffic.models import TrafficRequest
+from crosstown_traffic.models import TrafficRequest, StatusResponse
+from crosstown_traffic import db
 from fastapi import FastAPI
 from crosstown_traffic.bot import CrosstownTraffic
 
@@ -28,6 +29,7 @@ client = CrosstownTraffic(
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    await db.init_db()
     loop = asyncio.get_event_loop()
     # noinspection PyAsyncCall
     loop.create_task(client.start(os.getenv("DISCORD_TOKEN")))
@@ -57,6 +59,8 @@ async def mta(request: TrafficRequest):
 
 @app.post("/api/arrived_home")
 async def arrived_home(request: TrafficRequest):
+    await db.record_event("home")
+
     embed = traffic.get_location_embed(request.location)
     embed.title = "Vaughn has arrived home!"
 
@@ -68,6 +72,8 @@ async def arrived_home(request: TrafficRequest):
 
 @app.post("/api/left_home")
 async def left_home(request: TrafficRequest):
+    await db.record_event("away")
+
     embed = traffic.get_location_embed(request.location)
     embed.title = "Vaughn has left home!"
 
@@ -75,6 +81,11 @@ async def left_home(request: TrafficRequest):
 
     channel = await client.fetch_channel(DISCORD_CHANNEL)
     await channel.send(embed=embed, view=location_view)
+
+
+@app.get("/api/status", response_model=StatusResponse)
+async def status():
+    return await db.get_status()
 
 
 @app.post("/api/arrived_luca")

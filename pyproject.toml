@@ -10,6 +10,7 @@ dependencies = [
     "discord-py",
     "coloredlogs",
     "requests",
+    "aiosqlite",
 ]
 
 [dependency-groups]
