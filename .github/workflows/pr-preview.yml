@@ -38,6 +38,4 @@ jobs:
       build-context: .
       helm-path: ./helm
       chart-name: crosstown-traffic
-      helm-image-repository-key: single-container.image
-      helm-image-tag-key: single-container.imageTag
     secrets: inherit
