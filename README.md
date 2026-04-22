@@ -8,6 +8,7 @@ with more modern design principals and a battery-friendly implementation.
 - Notifies when the subway has been boarded by the tracked individual
 - Notifies when the tracked individual leaves/returns home
 - Provides static map and streetview images on events
+- Provides last known location (just home/not home) on demand via API
 
 ## Planned Additions
 
