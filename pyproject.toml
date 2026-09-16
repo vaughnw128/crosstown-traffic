@@ -6,7 +6,7 @@ authors = [{ name = "Vaughn Woerpel", email = "vaughnwoerpel@gmail.com" }]
 requires-python = ">=3.13"
 readme = "README.md"
 dependencies = [
-    "fastapi[standard]>=0.136,<0.137",
+    "fastapi[standard]>=0.141,<0.142",
     "discord-py>=2.5.2,<3",
     "coloredlogs>=15.0.1,<16",
     "requests>=2.32.3,<3",
@@ -16,7 +16,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  "ruff>=0.15.11,<0.16",
+  "ruff>=0.16.8,<0.17",
   "pytest>=9.0.3,<10",
 ]
 
