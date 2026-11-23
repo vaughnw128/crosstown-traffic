@@ -1,0 +1,34 @@
+name: Verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: verify-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions: {}
+
+jobs:
+  verify:
+    permissions:
+      contents: read
+      packages: read
+    uses: vaughnw128/hakoniwa/.github/workflows/verify.yml@main
+    with:
+      language: python
+      helm-path: ./helm
+
+  notify-failure:
+    needs: verify
+    if: ${{ always() && github.event_name == 'pull_request' && needs.verify.result == 'failure' }}
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    uses: vaughnw128/hakoniwa/.github/workflows/pr-failure-comment.yml@main
+    with:
+      pr-number: ${{ github.event.pull_request.number }}
+      title: "Verify failed."

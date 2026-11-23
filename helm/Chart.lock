@@ -1,0 +1,6 @@
+dependencies:
+- name: single-container
+  repository: oci://ghcr.io/vaughnw128/charts
+  version: 1.0.1
+digest: sha256:3efcbf3c41c1dd8ef6b7a7bbf86ed28092d0eb12b630d0c0f6a5627e65b0a7b8
+generated: "2026-11-22T10:55:52.524001194-05:00"
