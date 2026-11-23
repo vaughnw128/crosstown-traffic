@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from datetime import UTC
 
 import aiosqlite
 
@@ -25,9 +26,9 @@ async def init_db() -> None:
 async def record_event(state: str) -> None:
     """Append a presence-change event ('home' or 'away')."""
 
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     async with aiosqlite.connect(DB_PATH) as db:
         await db.execute(
             "INSERT INTO events (state, timestamp) VALUES (?, ?)",

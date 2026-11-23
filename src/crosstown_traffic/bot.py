@@ -16,7 +16,6 @@ from discord.ext import commands
 
 # project modules
 from crosstown_traffic import exts
-
 from crosstown_traffic.helpers.logging import logger
 
 
