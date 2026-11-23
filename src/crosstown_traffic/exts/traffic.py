@@ -10,9 +10,10 @@ import aiohttp
 import discord
 from discord.ext import commands
 
+from crosstown_traffic.helpers.logging import logger
+
 # project
 from crosstown_traffic.models import Location
-from crosstown_traffic.helpers.logging import logger
 
 
 class MapsView(discord.ui.View):
@@ -38,8 +39,8 @@ class MapsView(discord.ui.View):
             await interaction.followup.send(
                 file=discord.File(fp=fb, filename="map.png")
             )
-        except Exception as e:
-            logger.error(e)
+        except discord.HTTPException:
+            logger.exception("Failed to send map")
 
     # UI button to get the static streetview
     @discord.ui.button(label="Street View", style=discord.ButtonStyle.green)
@@ -90,6 +91,5 @@ def get_location_embed(location: Location):
 
 async def grab_file_bytes(url: str) -> BytesIO:
     """Grabs the bytes of a file from the URL."""
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            return BytesIO(await resp.read())
+    async with aiohttp.ClientSession() as session, session.get(url) as resp:
+        return BytesIO(await resp.read())

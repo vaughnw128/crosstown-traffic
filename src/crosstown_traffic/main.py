@@ -7,14 +7,15 @@ from contextlib import asynccontextmanager
 
 # external
 import discord
+from fastapi import FastAPI
+
+from crosstown_traffic import db
+from crosstown_traffic.bot import CrosstownTraffic
 
 # project
 from crosstown_traffic.exts import traffic
 from crosstown_traffic.exts.traffic import MapsView
-from crosstown_traffic.models import TrafficRequest, StatusResponse
-from crosstown_traffic import db
-from fastapi import FastAPI
-from crosstown_traffic.bot import CrosstownTraffic
+from crosstown_traffic.models import StatusResponse, TrafficRequest
 
 DISCORD_CHANNEL = int(os.getenv("CHANNEL_ID"))
 
